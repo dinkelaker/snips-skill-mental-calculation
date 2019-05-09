@@ -83,7 +83,7 @@ def user_request_quiz(hermes, intent_message):
     # parse input message, NOTE extra space to append question
     n_questions = int(intent_message.slots.n_questions.first().value)
     if n_questions > 1:
-        response = "Starting a lesson with {} questions. ".format(n_questions)
+        response = "Starting a lesson with {} questions. ".format(n_questions) //the white space after the full stop leads to a spoken break
     elif n_questions == 1:
         response = "Starting a lesson with one question. "
     else:
@@ -119,6 +119,10 @@ def user_gives_answer(hermes, intent_message):
     else:
         response = "Incorrect. The answer is {}. ".format(SessionsStates[session_id]["ans"])
         SessionsStates[session_id]["bad"] += 1
+        #import sounddevice
+        #sd.play("file.wav")
+        #response+ = ""
+        #hermes.publish_end_session(session_id, response)
 
     # create new question or terminate if reached desired number of questions
     response, cont = continue_lesson(response, session_id)
